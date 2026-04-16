@@ -4,16 +4,40 @@ import GlowButton from "../components/GlowButton";
 import PageContainer from "../components/PageContainer";
 import NeuralBackground from "../components/NeuralBackground";
 import Loader from "../components/Loader";
+import { generateWebsite } from "../utils/api";
 
 export default function Builder() {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState("");
 
-  const generate = () => {
+  const generate = async () => {
     if (!prompt.trim()) return;
+
     setLoading(true);
-    setTimeout(() => setLoading(false), 2500);
-  };
+
+    try {
+      const data = await generateWebsite(prompt);
+
+      const fullCode = `<html>
+        <head>
+          <style>${data?.css || ""}</style>
+        </head>
+        <body>
+          ${data?.html || ""}
+          <script>${data?.js || ""}</script>
+        </body>
+        </html>`;
+
+      setResult(fullCode);
+
+        } catch (err) {
+          console.error("Error:", err);
+        }
+
+        setLoading(false);
+            };
+
 
   return (
     <div className="relative min-h-screen bg-[#0A0D14] text-white overflow-hidden">
@@ -29,7 +53,7 @@ export default function Builder() {
         Greywave AI Builder
       </h1>
       <p className="text-left text-gray-400 mt-2">
-        Speak to Greywave. Watch intelligence turn into interface.
+        Speak to Greywave. Watch intelligenturninto interface.
       </p>
     </div>
 
@@ -81,5 +105,5 @@ export default function Builder() {
         </div>
       </PageContainer>
     </div>
-  );
+  )
 }
