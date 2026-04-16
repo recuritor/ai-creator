@@ -1,17 +1,32 @@
-import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Landing from "./pages/Landing";
+import Builder from "./pages/Builder";
+import Pricing from "./pages/Pricing";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-function App() {
-  const [count, setCount] = useState(0);
-
+export default function App() {
   return (
-    <main className="app">
-      <h1>AI Creator Frontend</h1>
-      <p>Welcome to your new React app.</p>
-      <button onClick={() => setCount((count) => count + 1)}>
-        Clicked {count} {count === 1 ? 'time' : 'times'}
-      </button>
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        
+        {/* 🔒 PROTECTED */}
+        <Route
+          path="/builder"
+          element={
+            <ProtectedRoute>
+              <Builder />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
