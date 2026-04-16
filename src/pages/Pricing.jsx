@@ -9,24 +9,26 @@ export default function Pricing() {
 
   return (
     <div className="relative min-h-screen bg-[#0A0D14] text-white overflow-hidden">
+      {/* Background visuals (click-safe) */}
       <NeuralBackground />
+
+      {/* Fixed navbar */}
       <Navbar />
 
-      {/* ✅ EVERYTHING BELOW NAVBAR */}
+      {/* ✅ All page content goes here */}
       <PageContainer>
-
         {/* HEADER */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-10 px-6 sm:px-8">
           <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
             Intelligent pricing for intelligent creation
           </h1>
           <p className="mt-2 text-gray-400 text-sm">
-            Only pay more when Greywave generates more.
+            Only pay more when Greywave generates more value for you.
           </p>
         </div>
 
         {/* PRICING GRID */}
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-0">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 px-6 sm:px-8 md:px-0">
           <PricingCard
             title="Starter"
             price="Free"
@@ -70,7 +72,6 @@ export default function Pricing() {
             onSelect={() => setSelectedPlan("Studio")}
           />
         </div>
-
       </PageContainer>
     </div>
   );
